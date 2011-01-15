@@ -83,7 +83,7 @@ ctrl_interface_group=0
 ##### IEEE 802.11 related configuration #######################################
 
 # SSID to be used in IEEE 802.11 management frames
-ssid=dhalperi
+ssid=csitool
 
 # Country code (ISO/IEC 3166-1). Used to set regulatory domain.
 # Set as needed to indicate country in which device is operating.
