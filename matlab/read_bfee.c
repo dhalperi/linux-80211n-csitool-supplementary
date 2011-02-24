@@ -1,3 +1,6 @@
+/*
+ * (c) 2008-2011 Daniel Halperin <dhalperi@cs.washington.edu>
+ */
 #include "mex.h"
 
 /* The computational routine */
@@ -55,7 +58,7 @@ void read_bfee(unsigned char *inBytes, mxArray *outCell)
 	int perm_size[] = {1, 3};
 	mxArray *perm = mxCreateNumericArray(2, perm_size, mxDOUBLE_CLASS, mxREAL);
 	ptrR = (double *)mxGetPr(perm);
-	ptrR[0] = ((antenna_sel) & 0x3) + 1; 
+	ptrR[0] = ((antenna_sel) & 0x3) + 1;
 	ptrR[1] = ((antenna_sel >> 2) & 0x3) + 1;
 	ptrR[2] = ((antenna_sel >> 4) & 0x3) + 1;
 

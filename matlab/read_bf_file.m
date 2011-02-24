@@ -2,7 +2,9 @@
 %   Like read_snr_bf_new but assumes trace format of July '09.
 %   This version uses the *C* version of read_bfee (updated for the new
 %   format).
-
+%
+% (c) 2008-2011 Daniel Halperin <dhalperi@cs.washington.edu>
+%
 function ret = read_bf_file(filename)
 %% Input check
 error(nargchk(1,1,nargin));
@@ -41,7 +43,7 @@ while cur < (len - 3)
     field_len = fread(f, 1, 'uint16', 0, 'ieee-be');
     code = fread(f,1);
     cur = cur+3;
-    
+
     % If unhandled code, skip (seek over) the record and continue
     if (code == 187) % get beamforming or phy data
         bytes = fread(f, field_len-1, 'uint8=>uint8');
@@ -55,7 +57,7 @@ while cur < (len - 3)
         cur = cur + field_len - 1;
         continue;
     end
-    
+
     if (code == 187) %hex2dec('bb')) Beamforming matrix -- output a record
         % Could happen if we miss the first rx_phy_res entry
         %if isempty(perm)

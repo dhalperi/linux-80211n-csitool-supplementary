@@ -1,3 +1,6 @@
+/*
+ * (c) 2008-2011 Daniel Halperin <dhalperi@cs.washington.edu>
+ */
 #include <sys/socket.h>
 #include <linux/socket.h>
 #include <linux/netlink.h>

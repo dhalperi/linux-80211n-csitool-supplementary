@@ -1,3 +1,6 @@
+/*
+ * (c) 2008-2011 Daniel Halperin <dhalperi@cs.washington.edu>
+ */
 #include <linux/types.h>
 #include <stdio.h>
 #include <stdlib.h>

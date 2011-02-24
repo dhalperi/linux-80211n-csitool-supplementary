@@ -1,4 +1,7 @@
 %GET_SCALED_CSI Converts a CSI struct to a scaled CSI matrix.
+%
+% (c) 2008-2011 Daniel Halperin <dhalperi@cs.washington.edu>
+%
 function ret = get_scaled_csi(csi_st)
     % Pull out CSI
     csi = csi_st.csi;
@@ -25,7 +28,7 @@ function ret = get_scaled_csi(csi_st)
     else
         noise = csi_st.noise;
     end
-    
+
     % Scale factor to convert to SNR. Two steps:
     %
     %   Scale CSI -> S : rssi_mag / (mean of csi_mag)

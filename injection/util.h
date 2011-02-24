@@ -1,3 +1,6 @@
+/*
+ * (c) 2008-2011 Daniel Halperin <dhalperi@cs.washington.edu>
+ */
 #ifndef __UTIL_H__
 #define __UTIL_H__
 

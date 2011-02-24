@@ -3,6 +3,10 @@
 %      M = # TX antennas
 %      N = # RX antennas
 %      S = # subcarriers
+%
+% (c) 2008-2011 Daniel Halperin <dhalperi@cs.washington.edu>,
+%               Wenjun Hu
+%
 function ret = get_mimo2_SNRs(csi)
     % Make sure at least 2 TX and RX antennas
     [M N S] = size(csi);
@@ -15,7 +19,7 @@ function ret = get_mimo2_SNRs(csi)
 
     % Since the incoming CSI is scaled to single-TX reduce by 2 for 2 streams
     csi = csi / sqrt(2);
-    
+
     % Separate out 3 and 2 antenna cases
     if M == 2
         ret = zeros(1,2,S);
@@ -25,7 +29,7 @@ function ret = get_mimo2_SNRs(csi)
         return;
     end
     % else M == 3
-    
+
     % There are 3 TX configs: TX AB, AC, BC
     ret = zeros(3,2,S);
     for i = 1:S

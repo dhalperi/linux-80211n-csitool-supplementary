@@ -1,3 +1,6 @@
+/*
+ * (c) 2008-2011 Daniel Halperin <dhalperi@cs.washington.edu>
+ */
 #include <arpa/inet.h>
 #include <linux/if_ether.h>
 #include <net/if.h>
