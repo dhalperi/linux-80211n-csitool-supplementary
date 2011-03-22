@@ -19,6 +19,7 @@ status = fseek(f, 0, 'eof');
 if status ~= 0
     [msg, errno] = ferror(f);
     error('Error %d seeking: %s', errno, msg);
+    fclose(f);
     return;
 end
 len = ftell(f);
@@ -27,6 +28,7 @@ status = fseek(f, 0, 'bof');
 if status ~= 0
     [msg, errno] = ferror(f);
     error('Error %d seeking: %s', errno, msg);
+    fclose(f);
     return;
 end
 
@@ -102,4 +104,5 @@ while cur < (len - 3)
         ret{count}.csi(:,perm(1:Nrx),:) = ret{count}.csi(:,1:Nrx,:);
     end
 end
+fclose(f);
 end
