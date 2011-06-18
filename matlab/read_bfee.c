@@ -6,9 +6,8 @@
 /* The computational routine */
 void read_bfee(unsigned char *inBytes, mxArray *outCell)
 {
-	char noise_a = inBytes[1];
-	char noise_b = inBytes[2];
-	char noise_c = inBytes[3];
+	unsigned long timestamp_low = inBytes[0] + (inBytes[1] << 8) +
+		(inBytes[2] << 16) + (inBytes[3] << 24);
 	unsigned short bfee_count = inBytes[4] + (inBytes[5] << 8);
 	unsigned int Nrx = inBytes[8];
 	unsigned int Ntx = inBytes[9];
@@ -62,9 +61,7 @@ void read_bfee(unsigned char *inBytes, mxArray *outCell)
 	ptrR[1] = ((antenna_sel >> 2) & 0x3) + 1;
 	ptrR[2] = ((antenna_sel >> 4) & 0x3) + 1;
 
-	mxDestroyArray(mxGetField(outCell, 0, "noise_a"));
-	mxDestroyArray(mxGetField(outCell, 0, "noise_b"));
-	mxDestroyArray(mxGetField(outCell, 0, "noise_c"));
+	mxDestroyArray(mxGetField(outCell, 0, "timestamp_low"));
 	mxDestroyArray(mxGetField(outCell, 0, "bfee_count"));
 	mxDestroyArray(mxGetField(outCell, 0, "Nrx"));
 	mxDestroyArray(mxGetField(outCell, 0, "Ntx"));
@@ -76,9 +73,7 @@ void read_bfee(unsigned char *inBytes, mxArray *outCell)
 	mxDestroyArray(mxGetField(outCell, 0, "perm"));
 	mxDestroyArray(mxGetField(outCell, 0, "rate"));
 	mxDestroyArray(mxGetField(outCell, 0, "csi"));
-	mxSetField(outCell, 0, "noise_a", mxCreateDoubleScalar((double)noise_a));
-	mxSetField(outCell, 0, "noise_b", mxCreateDoubleScalar((double)noise_b));
-	mxSetField(outCell, 0, "noise_c", mxCreateDoubleScalar((double)noise_c));
+	mxSetField(outCell, 0, "timestamp_low", mxCreateDoubleScalar((double)timestamp_low));
 	mxSetField(outCell, 0, "bfee_count", mxCreateDoubleScalar((double)bfee_count));
 	mxSetField(outCell, 0, "Nrx", mxCreateDoubleScalar((double)Nrx));
 	mxSetField(outCell, 0, "Ntx", mxCreateDoubleScalar((double)Ntx));
@@ -117,8 +112,16 @@ void mexFunction(int nlhs, mxArray *plhs[],
 	inBytes = mxGetData(prhs[0]);
 
 	/* create the output matrix */
-	const char* fieldnames[] = {"noise_a", "noise_b", "noise_c", "bfee_count", "Nrx", "Ntx", "rssi_a", "rssi_b", "rssi_c", "noise", "agc", "perm", "rate", "csi"};
-	outCell = mxCreateStructMatrix(1, 1, 14, fieldnames);
+	const char* fieldnames[] = {"timestamp_low",
+		"bfee_count",
+		"Nrx", "Ntx",
+		"rssi_a", "rssi_b", "rssi_c",
+		"noise",
+		"agc",
+		"perm",
+		"rate",
+		"csi"};
+	outCell = mxCreateStructMatrix(1, 1, 12, fieldnames);
 
 
 	/* call the computational routine */
