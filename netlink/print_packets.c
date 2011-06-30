@@ -54,9 +54,7 @@ int main(int argc, char** argv)
 		/* Beamforming packet */
 		if (code == 0xBB) {
 			struct iwl_bfee_notif *bfee = (void *)&buf[1];
-			printf("rate=0x%x, len=%d\n",
-					bfee->fake_rate_n_flags,
-					bfee->len);
+			printf("rate=0x%x\n", bfee->fake_rate_n_flags);
 		}
 
 		/* Read the next entry size */
