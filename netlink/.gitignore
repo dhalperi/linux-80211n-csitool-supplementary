@@ -1,2 +1,3 @@
 log_to_file
 parse_log
+print_packets
