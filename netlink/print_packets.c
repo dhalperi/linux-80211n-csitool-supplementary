@@ -25,6 +25,8 @@ int main(int argc, char** argv)
 	int32_t count = 0;
 	FILE* in;
 	uint8_t code;
+	size_t read;
+	struct iwl_bfee_notif *bfee;
 
 	/* Make sure usage is correct */
 	check_usage(argc, argv);
@@ -48,12 +50,17 @@ int main(int argc, char** argv)
 		}
 
 		/* Read in the entry */
-		fread(buf, l, sizeof(*buf), in);
+		read = sizeof(*bfee) + 1;
+		if (l < read)
+			read = l;
+		fread(buf, read, 1, in);
+		fseek(in, l - read, SEEK_CUR);
+
 		code = buf[0];
 
 		/* Beamforming packet */
 		if (code == 0xBB) {
-			struct iwl_bfee_notif *bfee = (void *)&buf[1];
+			bfee = (void *)&buf[1];
 			printf("rate=0x%x\n", bfee->fake_rate_n_flags);
 		}
 
