@@ -7,4 +7,4 @@ log_to_file: log_to_file.c Makefile
 	gcc $(KERNEL_INCLUDE) log_to_file.c -o log_to_file
 
 clean:
-	rm -f log_to_file
+	rm -f log_to_file print_packets parse_log
