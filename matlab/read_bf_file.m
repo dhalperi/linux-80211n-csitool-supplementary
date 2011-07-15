@@ -1,13 +1,13 @@
 %READ_BF_FILE Reads in a file of beamforming feedback logs.
-%   Like read_snr_bf_new but assumes trace format of July '09.
-%   This version uses the *C* version of read_bfee (updated for the new
-%   format).
+%   This version uses the *C* version of read_bfee, compiled with
+%   MATLAB's MEX utility.
 %
 % (c) 2008-2011 Daniel Halperin <dhalperi@cs.washington.edu>
 %
 function ret = read_bf_file(filename)
 %% Input check
 error(nargchk(1,1,nargin));
+
 %% Open file
 f = fopen(filename, 'rb');
 if (f < 0)
@@ -33,11 +33,12 @@ if status ~= 0
 end
 
 %% Initialize variables
-ret = {};                       % Holds the return values
+ret = cell(ceil(len/95),1);     % Holds the return values - 1x1 CSI is 95 bytes big, so this should be upper bound
 cur = 0;                        % Current offset into file
 count = 0;                      % Number of records output
-broken_perm = 0;                % Flag marking whether we've encountered a strange CSI yet
+broken_perm = 0;                % Flag marking whether we've encountered a broken CSI yet
 triangle = [1 3 6];             % What perm should sum to for 1,2,3 antennas
+
 %% Process all entries in file
 % Need 3 bytes -- 2 byte size field and 1 byte code
 while cur < (len - 3)
@@ -45,7 +46,7 @@ while cur < (len - 3)
     field_len = fread(f, 1, 'uint16', 0, 'ieee-be');
     code = fread(f,1);
     cur = cur+3;
-
+    
     % If unhandled code, skip (seek over) the record and continue
     if (code == 187) % get beamforming or phy data
         bytes = fread(f, field_len-1, 'uint8=>uint8');
@@ -55,20 +56,15 @@ while cur < (len - 3)
             return;
         end
     else % skip all other info
-	fseek(f, field_len - 1, 'cof');
+        fseek(f, field_len - 1, 'cof');
         cur = cur + field_len - 1;
         continue;
     end
-
+    
     if (code == 187) %hex2dec('bb')) Beamforming matrix -- output a record
-        % Could happen if we miss the first rx_phy_res entry
-        %if isempty(perm)
-        %    continue
-        %end
-
         count = count + 1;
-        ret{count} = read_bfee(bytes); %#ok<*AGROW>
-
+        ret{count} = read_bfee(bytes);
+        
         perm = ret{count}.perm;
         Nrx = ret{count}.Nrx;
         if Nrx == 1 % No permuting needed for only 1 antenna
@@ -79,30 +75,13 @@ while cur < (len - 3)
                 broken_perm = 1;
                 fprintf('WARN ONCE: Found CSI with Nrx=%d and invalid perm=[%s]', Nrx, int2str(perm));
             end
-            if Nrx == 2
-                if perm(2) >= perm(1)   % Handle e.g., [1 1] or [1 3] or [2 3]
-                    perm(1) = 1;
-                    perm(2) = 2;
-                else                    % Handle e.g., [3 1] [3 2]
-                    perm(1) = 2;
-                    perm(2) = 1;
-                end
-            else % Nrx == 3
-                % all values are 1,2,3, so anything that's not 1 is correct
-                wrong = sum(perm == 1) - 1;
-                if wrong == 2 % perm is [1 1 1]
-                    perm = [1 2 3];
-                else % wrong == 1, perm is [X 1 1] or [1 X 1]
-                    perm(3) = 6-perm(1)-perm(2); % last entry must be invalid
-                end
-            end
-            if broken_perm == 1
-                broken_perm = 2;
-                fprintf('; fixed to [%s]\n', int2str(perm));
-            end
+        else
+            ret{count}.csi(:,perm(1:Nrx),:) = ret{count}.csi(:,1:Nrx,:);
         end
-        ret{count}.csi(:,perm(1:Nrx),:) = ret{count}.csi(:,1:Nrx,:);
     end
 end
+ret = ret(1:count);
+
+%% Close file
 fclose(f);
 end
