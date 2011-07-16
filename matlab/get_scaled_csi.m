@@ -22,7 +22,7 @@ function ret = get_scaled_csi(csi_st)
     end
 
     % Noise might be undefined
-    % ... If so, set it to -95
+    % ... If so, set it to -92
     if (csi_st.noise == -127)
         noise = -92;
     else
