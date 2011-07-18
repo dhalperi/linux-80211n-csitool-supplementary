@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "bfee.h"
+#include <arpa/inet.h>
 
 #define BUF_SIZE	4096
 

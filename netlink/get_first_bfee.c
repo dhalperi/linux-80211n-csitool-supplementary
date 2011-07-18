@@ -4,6 +4,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <arpa/inet.h>
 #include "bfee.h"
 
 #define BUF_SIZE	4096
@@ -77,7 +78,7 @@ int main(int argc, char** argv)
 		fread(&buf[1+sizeof(*bfee)], l-read, 1, in);
 		fwrite(&l2, 2, 1, out);
       		fwrite(buf, 1, l, out);
-		break;	
+		break;
 
 skip:
 		fseek(in, l - read, SEEK_CUR);
