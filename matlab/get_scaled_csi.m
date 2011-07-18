@@ -36,7 +36,7 @@ function ret = get_scaled_csi(csi_st)
     scale = rssi_mag / (csi_mag / 30) / dbinv(noise + 44 + csi_st.agc);
     ret = csi * sqrt(scale);
     if csi_st.Ntx == 2
-        ret = ret * sqrt(csi_st.Ntx);
+        ret = ret * sqrt(2);
     elseif csi_st.Ntx == 3
         ret = ret * sqrt(dbinv(4.5));
     end
