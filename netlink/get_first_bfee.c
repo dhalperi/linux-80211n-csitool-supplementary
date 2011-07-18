@@ -4,6 +4,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include "bfee.h"
 
 #define BUF_SIZE	4096
 
@@ -17,15 +18,30 @@ void exit_program_err(int code, char* func);
 int main(int argc, char** argv)
 {
 	/* Local variables */
-	unsigned char buf[BUF_SIZE];
-	unsigned short l, l2;
+	uint8_t buf[BUF_SIZE];
+	int32_t ret;
+	uint16_t l, l2;
 	FILE* in;
+	FILE* out;
+	uint8_t code;
+	size_t read;
+	struct iwl_bfee_notif *bfee;
+	uint16_t fake_rate_n_flags;
 
 	/* Make sure usage is correct */
 	check_usage(argc, argv);
 
 	/* Open and check log file */
 	in = open_file(argv[1], "r");
+
+	/* Read in fake rate and flags */
+	sscanf(argv[2], "%hx", &fake_rate_n_flags);
+
+	/* Open and check output file */
+	out = open_file(argv[3], "wx");
+
+	/* Program exited successfully */
+	ret = 0;
 
 	/* Read the next entry size */
 	fread(&l2, 1, sizeof(unsigned short), in);
@@ -34,33 +50,55 @@ int main(int argc, char** argv)
 		/* Sanity-check the entry size */
 		if (l == 0) {
 			fprintf(stderr, "Error: got entry size=0\n");
-			exit_program(-1);
+			ret = -1;
+			break;
 		} else if (l > BUF_SIZE) {
 			fprintf(stderr,
 				"Error: got entry size %u > BUF_SIZE=%u\n",
 				l, BUF_SIZE);
-			exit_program(-2);
+			ret = -2;
+			break;
 		}
 
 		/* Read in the entry */
-		fread(buf, l, sizeof(*buf), in);
+		read = sizeof(*bfee) + 1;
+		if (l < read)
+			read = l;
+		fread(buf, read, 1, in);
+		code = buf[0];
 
-		printf("Entry size=%d, code=0x%X\n", l, buf[0]);
+		if (code != 0xBB)
+			goto skip;
+
+		bfee = (void *)&buf[1];
+		if (bfee->fake_rate_n_flags != fake_rate_n_flags)
+			goto skip;
+
+		fread(&buf[1+sizeof(*bfee)], l-read, 1, in);
+		fwrite(&l2, 2, 1, out);
+      		fwrite(buf, 1, l, out);
+		break;	
+
+skip:
+		fseek(in, l - read, SEEK_CUR);
 
 		/* Read the next entry size */
 		fread(&l2, 1, sizeof(unsigned short), in);
 		l = ntohs(l2);
 	}
 
-	exit_program(0);
-	return 0;
+	fclose(in);
+	fclose(out);
+
+	exit_program(ret);
+	return ret;
 }
 
 void check_usage(int argc, char** argv)
 {
-	if (argc != 2)
+	if (argc != 4)
 	{
-		fprintf(stderr, "Usage: parse_log <trace_file>\n");
+		fprintf(stderr, "Usage: print_packets <trace_file> <fake_rate> <output_file>\n");
 		exit_program(1);
 	}
 }

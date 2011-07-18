@@ -19,10 +19,7 @@ int main(int argc, char** argv)
 {
 	/* Local variables */
 	uint8_t buf[BUF_SIZE];
-	int32_t ret;
-	int32_t i;
 	uint16_t l, l2;
-	int32_t count = 0;
 	FILE* in;
 	uint8_t code;
 	size_t read;
