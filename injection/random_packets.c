@@ -4,6 +4,8 @@
 #include <linux/types.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
+#include <time.h>
 
 #include <tx80211.h>
 #include <tx80211_packet.h>
@@ -45,22 +47,28 @@ int main(int argc, char** argv)
 	uint32_t i;
 	int32_t ret;
 	uint32_t mode;
+	uint32_t delay_us;
+	struct timespec start, now;
+	int32_t diff;
 
 	/* Parse arguments */
-	if (argc > 4) {
-		printf("Usage: random_packets <number> <length> <mode: 0=my MAC, 1=injection MAC>\n");
+	if (argc > 5) {
+		printf("Usage: random_packets <number> <length> <mode: 0=my MAC, 1=injection MAC> <delay in us>\n");
 		return 1;
 	}
-	if (argc <= 3 || (1 != sscanf(argv[3], "%u", &mode))) {
+	if (argc < 5 || (1 != sscanf(argv[4], "%u", &delay_us))) {
+		delay_us = 0;
+	}
+	if (argc < 4 || (1 != sscanf(argv[3], "%u", &mode))) {
 		mode = 0;
-		printf("Usage: random_packets <number> <length> <mode: 0=my MAC, 1=injection MAC\n");
+		printf("Usage: random_packets <number> <length> <mode: 0=my MAC, 1=injection MAC> <delay in us>\n");
 	} else if (mode > 1) {
-		printf("Usage: random_packets <number> <length> <mode: 0=my MAC, 1=injection MAC\n");
+		printf("Usage: random_packets <number> <length> <mode: 0=my MAC, 1=injection MAC> <delay in us>\n");
 		return 1;
 	}
-	if (argc <= 2 || (1 != sscanf(argv[2], "%u", &packet_size)))
+	if (argc < 3 || (1 != sscanf(argv[2], "%u", &packet_size)))
 		packet_size = 2200;
-	if (argc <= 1 || (1 != sscanf(argv[1], "%u", &num_packets)))
+	if (argc < 2 || (1 != sscanf(argv[1], "%u", &num_packets)))
 		num_packets = 10000;
 
 	/* Generate packet payloads */
@@ -99,16 +107,35 @@ int main(int argc, char** argv)
 	tx_packet.plen = sizeof(*packet) + packet_size;
 
 	/* Send packets */
-	printf("Sending %u packets of size %u\n", num_packets, packet_size);
+	printf("Sending %u packets of size %u (. every thousand)\n", num_packets, packet_size);
+	if (delay_us) {
+		/* Get start time */
+		clock_gettime(CLOCK_MONOTONIC, &start);
+	}
 	for (i = 0; i < num_packets; ++i) {
 		payload_memcpy(packet->payload, packet_size,
 				(i*packet_size) % PAYLOAD_SIZE);
+
+		if (delay_us) {
+			clock_gettime(CLOCK_MONOTONIC, &now);
+			diff = (now.tv_sec - start.tv_sec) * 1000000 +
+			       (now.tv_nsec - start.tv_nsec + 500) / 1000;
+			diff = delay_us*i - diff;
+			if (diff > 0 && diff < delay_us)
+				usleep(diff);
+		}
+
 		ret = tx80211_txpacket(&tx, &tx_packet);
 		if (ret < 0) {
 			fprintf(stderr, "Unable to transmit packet: %s\n",
 					tx.errstr);
 			exit(1);
 		}
+
+		if (((i+1) % 1000) == 0)
+			printf("."); fflush(stdout);
+		if (((i+1) % 50000) == 0)
+			printf("%dk\n", (i+1)/1000); fflush(stdout);
 	}
 
 	return 0;

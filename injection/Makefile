@@ -4,7 +4,6 @@ CC_OPTS = -O3 -Wall -static -Wno-unknown-pragmas
 CC = gcc
 
 CFLAGS = $(CC_OPTS) $(INCLUDE)
-LIBM = -lm
 
 ALL = random_packets
 
@@ -14,6 +13,6 @@ clean:
 	rm $(ALL)
 
 random_packets: random_packets.c util.o
-	$(CC) $(CFLAGS) -o $@ $^ -lorcon -lm
+	$(CC) $(CFLAGS) -o $@ $^ -lorcon -lm -lrt
 
 util.o: util.c util.h Makefile
