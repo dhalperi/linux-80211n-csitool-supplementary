@@ -1,6 +1,7 @@
 /*
  * (c) 2008-2011 Daniel Halperin <dhalperi@cs.washington.edu>
  */
+#include <arpa/inet.h>
 #include <sys/socket.h>
 #include <linux/socket.h>
 #include <linux/netlink.h>
@@ -9,6 +10,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <signal.h>
+#include <unistd.h>
 
 #define MAX_PAYLOAD 2048
 #define SLOW_MSG_CNT 1
@@ -32,7 +34,6 @@ int main(int argc, char** argv)
 	struct cn_msg *cmsg;
 	char buf[4096];
 	int ret;
-	int i;
 	unsigned short l, l2;
 	int count = 0;
 
