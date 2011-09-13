@@ -73,7 +73,7 @@ while cur < (len - 3)
         if sum(perm) ~= triangle(Nrx) % matrix does not contain default values
             if broken_perm == 0
                 broken_perm = 1;
-                fprintf('WARN ONCE: Found CSI with Nrx=%d and invalid perm=[%s]', Nrx, int2str(perm));
+                fprintf('WARN ONCE: Found CSI (%s) with Nrx=%d and invalid perm=[%s]\n', filename, Nrx, int2str(perm));
             end
         else
             ret{count}.csi(:,perm(1:Nrx),:) = ret{count}.csi(:,1:Nrx,:);
