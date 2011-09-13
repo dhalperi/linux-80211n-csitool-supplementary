@@ -28,6 +28,8 @@ int main(int argc, char** argv)
 	size_t read;
 	struct iwl_bfee_notif *bfee;
 	uint16_t fake_rate_n_flags;
+	int check_Nrx;
+	uint8_t Nrx;
 
 	/* Make sure usage is correct */
 	check_usage(argc, argv);
@@ -38,8 +40,13 @@ int main(int argc, char** argv)
 	/* Read in fake rate and flags */
 	sscanf(argv[2], "%hx", &fake_rate_n_flags);
 
-	/* Open and check output file */
-	out = open_file(argv[3], "wx");
+	/* If optional Nrx argument was provided, get it */
+	if (argc > 4) {
+		check_Nrx = 1;
+		sscanf(argv[4], "%hhu", &Nrx);
+	} else {
+		check_Nrx = 0;
+	}
 
 	/* Program exited successfully */
 	ret = 0;
@@ -74,10 +81,16 @@ int main(int argc, char** argv)
 		bfee = (void *)&buf[1];
 		if (bfee->fake_rate_n_flags != fake_rate_n_flags)
 			goto skip;
+		if (check_Nrx && bfee->Nrx != Nrx)
+			goto skip;
 
+		/* Open and check output file */
+		out = open_file(argv[3], "wx");
+		/* Write it out */
 		fread(&buf[1+sizeof(*bfee)], l-read, 1, in);
 		fwrite(&l2, 2, 1, out);
       		fwrite(buf, 1, l, out);
+		fclose(out);
 		break;
 
 skip:
@@ -89,7 +102,6 @@ skip:
 	}
 
 	fclose(in);
-	fclose(out);
 
 	exit_program(ret);
 	return ret;
@@ -97,9 +109,9 @@ skip:
 
 void check_usage(int argc, char** argv)
 {
-	if (argc != 4)
+	if (argc < 4 || argc > 5)
 	{
-		fprintf(stderr, "Usage: print_packets <trace_file> <fake_rate> <output_file>\n");
+		fprintf(stderr, "Usage: print_packets <trace_file> <fake_rate> <output_file> [optional: Nrx]\n");
 		exit_program(1);
 	}
 }
