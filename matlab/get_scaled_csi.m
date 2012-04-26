@@ -23,15 +23,9 @@ function ret = get_scaled_csi(csi_st)
     end
     thermal_noise_pwr = dbinv(noise_db);
     
-    % Quantization error: the coefficients in the matrices are
-    % 8-bit signed numbers, max 127/-128 to min 0/1. Given that Intel
-    % only uses a 6-bit ADC, I expect every entry to be off by about
-    % +/- 1 (total across real & complex parts) per entry.
-    %
-    % The total power is then 1^2 = 1 per entry, and there are
-    % Nrx*Ntx entries per carrier. We only want one carrier's worth of
-    % error, since we only computed one carrier's worth of signal above.
-    quant_error_pwr = scale * (csi_st.Nrx * csi_st.Ntx);
+    % Take two: quantization error power can't ever be lower than ADC_BITS
+    % below RSSI
+    quant_error_pwr = dbinv(get_quant_err(csi_st, 6));
 
     % Total noise and error power
     total_noise_pwr = thermal_noise_pwr + quant_error_pwr;
