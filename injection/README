@@ -1,13 +1,17 @@
-To use this tool you must install the LORCON library from
-http://code.google.com/p/lorcon/
+You need LORCON version 1 to compile this executable.
 
-Example:
+- install libpcap-dev
+- download LORCONv1 from http://802.11ninja.net/svn/lorcon/branch/lorcon-old/
+- compile and sudo make install LORCON
+- make install here
 
-receiver:
-./setup_monitor_csi.sh 64 HT20
-sudo ../netlink/log_to_file log.dat
+How to use:
 
-transmitter:
-./setup_inject.sh 64 HT20
-echo 0x4101 | sudo tee `find /sys -name monitor_tx_rate`
-sudo ./random_packets 1 100 1
+    receiver:
+	./setup_monitor_csi.sh 64 HT20
+	sudo ../netlink/log_to_file log.dat
+
+    transmitter:
+	./setup_inject.sh 64 HT20
+	echo 0x4101 | sudo tee `find /sys -name monitor_tx_rate`
+	sudo ./random_packets 1 100 1
