@@ -2,7 +2,8 @@ all: print_packets get_first_bfee parse_log log_to_file nl_bf_to_eff
 
 KERNEL = $(strip $(shell uname -r))
 KERNEL_INCLUDE = -I /usr/src/linux-headers-$(KERNEL)/include
-CFLAGS = -Wall -Werror $(KERNEL_INCLUDE) -lm
+CFLAGS = -Wall -Werror $(KERNEL_INCLUDE)
+LDLIBS = -lm
 CC = gcc
 
 log_to_file: log_to_file.c
