@@ -12,6 +12,8 @@
 #include <signal.h>
 #include <unistd.h>
 
+#include "iwl_structs.h"
+
 #define MAX_PAYLOAD 2048
 #define SLOW_MSG_CNT 1
 

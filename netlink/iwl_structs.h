@@ -349,6 +349,9 @@ struct tx_agg_ba_connector_msg {
 	uint32_t frame_count;
 };
 
+#define CN_IDX_IWLAGN	(CN_NETLINK_USERS + 0xf)
+#define CN_VAL_IWLAGN	0x1
+
 #define IWL_CONN_BFEE_NOTIF	0xbb		/* 0xbb */
 #define IWL_CONN_RX_PHY		0xc0		/* 0xc0 */
 #define IWL_CONN_RX_MPDU	0xc1		/* 0xc1 */

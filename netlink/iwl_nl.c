@@ -12,6 +12,7 @@
 #include <errno.h>
 
 #include "iwl_nl.h"
+#include "iwl_structs.h"
 
 static char netlink_buffer[IWL_NL_BUFFER_SIZE];
 static uint32_t seq = 0;
