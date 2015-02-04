@@ -6,7 +6,7 @@
 /* The computational routine */
 void read_bfee(unsigned char *inBytes, mxArray *outCell)
 {
-	unsigned long timestamp_low = inBytes[0] + (inBytes[1] << 8) +
+	unsigned int timestamp_low = inBytes[0] + (inBytes[1] << 8) +
 		(inBytes[2] << 16) + (inBytes[3] << 24);
 	unsigned short bfee_count = inBytes[4] + (inBytes[5] << 8);
 	unsigned int Nrx = inBytes[8];
