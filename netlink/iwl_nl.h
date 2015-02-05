@@ -8,6 +8,7 @@
 #define IWL_NL_BUFFER_SIZE	4096
 
 int open_iwl_netlink_socket();
+void close_iwl_netlink_socket(int sock_fd);
 int iwl_netlink_recv(int sock_fd, u_char **buf, int *len);
 int iwl_netlink_send(int sock_fd, const u_char *buf, int len);
 

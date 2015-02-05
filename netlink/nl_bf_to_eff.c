@@ -5,7 +5,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <signal.h>
-#include <unistd.h>
 #include <stdint.h>
 
 #include "iwl_nl.h"
@@ -103,7 +102,7 @@ static void exit_program(int code)
 		out = NULL;
 	}
 	if (sock_fd != -1) {
-		close(sock_fd);
+		close_iwl_netlink_socket(sock_fd);
 		sock_fd = -1;
 	}
 	exit(code);

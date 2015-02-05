@@ -59,6 +59,11 @@ int open_iwl_netlink_socket()
 	return sock_fd;
 }
 
+void close_iwl_netlink_socket(int sock_fd)
+{
+	close(sock_fd);
+}
+
 int iwl_netlink_recv(int sock_fd, u_char **buf, int *len)
 {
 	int ret = recv(sock_fd, netlink_buffer, sizeof(netlink_buffer), 0);
