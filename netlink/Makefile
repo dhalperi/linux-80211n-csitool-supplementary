@@ -1,8 +1,6 @@
 all: print_packets get_first_bfee parse_log log_to_file nl_bf_to_eff
 
-KERNEL = $(strip $(shell uname -r))
-KERNEL_INCLUDE = -I /lib/modules/$(KERNEL)/build/include
-CFLAGS = -Wall -Werror $(KERNEL_INCLUDE)
+CFLAGS = -Wall -Werror
 LDLIBS = -lm
 CC = gcc
 
