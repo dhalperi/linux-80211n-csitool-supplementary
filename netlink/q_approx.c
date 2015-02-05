@@ -1,8 +1,6 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdint.h>
-#include <errno.h>
 #include "q_approx.h"
+
+#include <stdint.h>
 
 #define Q_TABLE_LEN	26
 #define Q_TABLE_BITS	16

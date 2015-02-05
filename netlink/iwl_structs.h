@@ -2,7 +2,6 @@
 #define __IWL_STRUCTS_H__
 
 #include <stdint.h>
-#include <inttypes.h>
 
 /**
  * WARNING!

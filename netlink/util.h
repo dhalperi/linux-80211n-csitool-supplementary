@@ -1,11 +1,9 @@
 #ifndef __UTIL_H__
 #define __UTIL_H__
 
-#include <sys/types.h>
+#include <stddef.h>
 #include <stdint.h>
 #include <sys/time.h>
-#include <time.h>
-#include <math.h>
 
 #define LN_10_BY_10	(0.23025850929940459)
 #define _10_BY_LN_10	(4.3429448190325175)

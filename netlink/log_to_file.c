@@ -1,18 +1,17 @@
 /*
  * (c) 2008-2011 Daniel Halperin <dhalperi@cs.washington.edu>
  */
-#include <arpa/inet.h>
-#include <sys/socket.h>
-#include <linux/socket.h>
-#include <linux/netlink.h>
-#include <linux/connector.h>
-#include <string.h>
-#include <stdlib.h>
+#include "iwl_structs.h"
+
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include <signal.h>
 #include <unistd.h>
-
-#include "iwl_structs.h"
+#include <arpa/inet.h>
+#include <sys/socket.h>
+#include <linux/netlink.h>
+#include <linux/connector.h>
 
 #define MAX_PAYLOAD 2048
 #define SLOW_MSG_CNT 1

@@ -2,8 +2,7 @@
 #define __IWL_NL_H__
 
 #include <stdint.h>
-#include <unistd.h>
-#include <stdlib.h>
+#include <sys/types.h>
 
 #define IWL_NL_BUFFER_SIZE	4096
 

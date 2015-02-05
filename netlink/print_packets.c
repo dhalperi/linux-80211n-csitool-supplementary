@@ -1,10 +1,10 @@
 /*
  * (c) 2011 Daniel Halperin <dhalperi@cs.washington.edu>
  */
-#include <string.h>
-#include <stdlib.h>
-#include <stdio.h>
 #include "bfee.h"
+
+#include <stdio.h>
+#include <stdlib.h>
 #include <arpa/inet.h>
 
 #define BUF_SIZE	4096

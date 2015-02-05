@@ -1,15 +1,12 @@
-#include <arpa/inet.h>
-#include <sys/socket.h>
-#include <linux/netlink.h>
-#include <linux/connector.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <signal.h>
-#include <stdint.h>
-
-#include "iwl_nl.h"
 #include "bf_to_eff.h"
-#include "util.h"
+#include "iwl_nl.h"
+#include "iwl_structs.h"
+
+#include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <signal.h>
+#include <arpa/inet.h>
 
 int sock_fd = -1;					// the socket
 FILE* out = NULL;

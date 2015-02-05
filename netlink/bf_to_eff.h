@@ -2,9 +2,6 @@
 #define __BF_TO_EFF_H__
 
 #include <stdint.h>
-#include <sys/types.h>
-#include <inttypes.h>
-#include "iwl_structs.h"
 
 /* 3 different SISO configs = 3
  * 3 different MIMO2 configs = 3
@@ -18,6 +15,7 @@
 #define FIRST_MIMO2		(NUM_RATES_SISO)
 #define FIRST_MIMO3		(FIRST_MIMO2 + NUM_RATES_MIMO2)
 
+struct iwl5000_bfee_notif;
 int calc_eff_snrs(struct iwl5000_bfee_notif *bfee,
 		double eff_snrs[MAX_NUM_RATES][4]);
 void shift_power_tables(int8_t shift);

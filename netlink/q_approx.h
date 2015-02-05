@@ -1,8 +1,6 @@
 #ifndef __Q_APPROX_H__
 #define __Q_APPROX_H__
 
-#include <stdint.h>
-
 /*
  * This is a LUT-based approximation for Q(sqrt(x)) using the order of
  * magnitude of x (exponent of x in double form) and then the first 4 bits of

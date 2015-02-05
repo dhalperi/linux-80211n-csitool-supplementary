@@ -1,13 +1,11 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <stdint.h>
-#include <inttypes.h>
-
-#include "q_approx.h"
 #include "bf_to_eff.h"
 #include "iwl_structs.h"
+#include "q_approx.h"
 #include "util.h"
+
+#include <stdint.h>
+#include <stdio.h>
+#include <string.h>
 
 #define DB_1		(1.2589254117941673)	/* 1 dB */
 #define DB_1_5		(1.4125375446227544)
