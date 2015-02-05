@@ -6,9 +6,7 @@ CFLAGS = -Wall -Werror $(KERNEL_INCLUDE)
 LDLIBS = -lm
 CC = gcc
 
-log_to_file: log_to_file.c
-
 nl_bf_to_eff: nl_bf_to_eff.c bf_to_eff.o iwl_nl.o util.o q_approx.o
 
 clean:
-	rm -f get_first_bfee log_to_file print_packets parse_log
+	rm -f *.o get_first_bfee log_to_file print_packets parse_log nl_bf_to_eff
