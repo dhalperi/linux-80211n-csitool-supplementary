@@ -111,7 +111,7 @@ void check_usage(int argc, char** argv)
 {
 	if (argc < 4 || argc > 5)
 	{
-		fprintf(stderr, "Usage: print_packets <trace_file> <fake_rate> <output_file> [optional: Nrx]\n");
+		fprintf(stderr, "Usage: %s <trace_file> <fake_rate> <output_file> [optional: Nrx]\n", argv[0]);
 		exit_program(1);
 	}
 }

@@ -61,7 +61,7 @@ void check_usage(int argc, char** argv)
 {
 	if (argc != 2)
 	{
-		fprintf(stderr, "Usage: parse_log <trace_file>\n");
+		fprintf(stderr, "Usage: %s <trace_file>\n", argv[0]);
 		exit_program(1);
 	}
 }

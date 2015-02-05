@@ -106,7 +106,7 @@ void check_usage(int argc, char** argv)
 {
 	if (argc != 2)
 	{
-		fprintf(stderr, "Usage: log_to_file <output_file>\n");
+		fprintf(stderr, "Usage: %s <output_file>\n", argv[0]);
 		exit_program(1);
 	}
 }

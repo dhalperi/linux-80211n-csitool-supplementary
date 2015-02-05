@@ -75,7 +75,7 @@ void check_usage(int argc, char** argv)
 {
 	if (argc != 2)
 	{
-		fprintf(stderr, "Usage: print_packets <trace_file>\n");
+		fprintf(stderr, "Usage: %s <trace_file>\n", argv[0]);
 		exit_program(1);
 	}
 }
