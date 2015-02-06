@@ -1,12 +1,11 @@
 #include "iwl_nl.h"
-#include "iwl_structs.h"
+#include "iwl_connector.h"
 
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
 #include <sys/socket.h>
 #include <linux/netlink.h>
-#include <linux/connector.h>
 
 static char netlink_buffer[IWL_NL_BUFFER_SIZE];
 static uint32_t seq = 0;

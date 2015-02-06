@@ -1,7 +1,7 @@
 /*
  * (c) 2008-2011 Daniel Halperin <dhalperi@cs.washington.edu>
  */
-#include "iwl_structs.h"
+#include "iwl_connector.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -11,7 +11,6 @@
 #include <arpa/inet.h>
 #include <sys/socket.h>
 #include <linux/netlink.h>
-#include <linux/connector.h>
 
 #define MAX_PAYLOAD 2048
 #define SLOW_MSG_CNT 1
