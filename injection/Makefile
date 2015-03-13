@@ -6,7 +6,7 @@ ALL = random_packets
 all: $(ALL)
 
 clean:
-	rm $(ALL)
+	rm -f *.o $(ALL)
 
 random_packets: random_packets.c util.o
 	$(CC) $(CFLAGS) -o $@ $^ -lorcon -lm -lrt
