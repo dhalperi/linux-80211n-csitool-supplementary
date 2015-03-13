@@ -1,9 +1,5 @@
-KERNEL = $(strip $(shell uname -r))
-INCLUDE = -I /usr/src/linux-headers-$(KERNEL)/include
-CC_OPTS = -O3 -Wall -static -Wno-unknown-pragmas
+CFLAGS = -O3 -Wall -static -Wno-unknown-pragmas
 CC = gcc
-
-CFLAGS = $(CC_OPTS) $(INCLUDE)
 
 ALL = random_packets
 
