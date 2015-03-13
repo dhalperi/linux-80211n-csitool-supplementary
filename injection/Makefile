@@ -1,4 +1,5 @@
 CFLAGS = -O3 -Wall -static -Wno-unknown-pragmas
+LDLIBS = -lorcon -lm -lrt
 CC = gcc
 
 ALL = random_packets
@@ -9,6 +10,5 @@ clean:
 	rm -f *.o $(ALL)
 
 random_packets: random_packets.c util.o
-	$(CC) $(CFLAGS) -o $@ $^ -lorcon -lm -lrt
 
-util.o: util.c util.h Makefile
+util.c: util.h
