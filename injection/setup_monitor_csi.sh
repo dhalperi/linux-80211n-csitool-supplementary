@@ -1,5 +1,5 @@
 #!/usr/bin/sudo /bin/bash
-rmmod iwlwifi mac80211 cfg80211
+modprobe -r iwlwifi mac80211 cfg80211
 modprobe iwlwifi connector_log=0x1
 # Setup monitor mode, loop until it works
 iwconfig wlan0 mode monitor 2>/dev/null 1>/dev/null
