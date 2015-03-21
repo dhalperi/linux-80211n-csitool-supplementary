@@ -1,5 +1,5 @@
 #!/usr/bin/sudo /bin/bash
-rmmod iwlwifi mac80211 cfg80211
+modprobe -r iwlwifi mac80211 cfg80211
 modprobe iwlwifi debug=0x40000
 ifconfig wlan0 2>/dev/null 1>/dev/null
 while [ $? -ne 0 ]
