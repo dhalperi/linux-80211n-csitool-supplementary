@@ -132,10 +132,14 @@ int main(int argc, char** argv)
 			exit(1);
 		}
 
-		if (((i+1) % 1000) == 0)
-			printf("."); fflush(stdout);
-		if (((i+1) % 50000) == 0)
-			printf("%dk\n", (i+1)/1000); fflush(stdout);
+		if (((i+1) % 1000) == 0) {
+			printf(".");
+			fflush(stdout);
+		}
+		if (((i+1) % 50000) == 0) {
+			printf("%dk\n", (i+1)/1000);
+			fflush(stdout);
+		}
 	}
 
 	return 0;
