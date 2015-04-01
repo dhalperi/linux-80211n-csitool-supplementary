@@ -96,7 +96,7 @@ int main(int argc, char** argv)
 	if (mode == 0) {
 		memcpy(packet->addr1, "\x00\x16\xea\x12\x34\x56", 6);
 		get_mac_address(packet->addr2, "mon0");
-		memcpy(packet->addr1, "\x00\x16\xea\x12\x34\x56", 6);
+		memcpy(packet->addr3, "\x00\x16\xea\x12\x34\x56", 6);
 	} else if (mode == 1) {
 		memcpy(packet->addr1, "\x00\x16\xea\x12\x34\x56", 6);
 		memcpy(packet->addr2, "\x00\x16\xea\x12\x34\x56", 6);
