@@ -18,7 +18,7 @@ How to use:
 
 Please read the output of
 
-    ./random_packets
+    ./random_packets -h
 
 (you should see a usage string) to understand the meaning of these parameters and the
 other parameters that are available.
