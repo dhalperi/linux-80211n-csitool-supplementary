@@ -15,3 +15,10 @@ How to use:
 	./setup_inject.sh 64 HT20
 	echo 0x4101 | sudo tee `find /sys -name monitor_tx_rate`
 	sudo ./random_packets 1 100 1
+
+Please read the output of
+
+    ./random_packets
+
+(you should see a usage string) to understand the meaning of these parameters and the
+other parameters that are available.
