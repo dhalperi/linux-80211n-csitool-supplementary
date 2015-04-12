@@ -16,9 +16,5 @@ How to use:
 	echo 0x4101 | sudo tee `find /sys -name monitor_tx_rate`
 	sudo ./random_packets 1 100 1
 
-Please read the output of
-
-    ./random_packets -h
-
-(you should see a usage string) to understand the meaning of these parameters and the
-other parameters that are available.
+Please check the source code for random_packets.c to understand the meaning of
+these parameters and the other parameters that are available.
