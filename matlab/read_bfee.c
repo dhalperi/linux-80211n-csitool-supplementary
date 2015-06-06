@@ -24,9 +24,9 @@ void read_bfee(unsigned char *inBytes, mxArray *outCell)
 	unsigned int index = 0, remainder;
 	unsigned char *payload = &inBytes[20];
 	char tmp;
-	int size[] = {Ntx, Nrx, 30};
+	mwSize size[] = {Ntx, Nrx, 30};
 	mxArray *csi = mxCreateNumericArray(3, size, mxDOUBLE_CLASS, mxCOMPLEX);
-	int perm_size[] = {1, 3};
+	mwSize perm_size[] = {1, 3};
 	mxArray *perm = mxCreateNumericArray(2, perm_size, mxDOUBLE_CLASS, mxREAL);
 	double* ptrR = (double *)mxGetPr(csi);
 	double* ptrI = (double *)mxGetPi(csi);
