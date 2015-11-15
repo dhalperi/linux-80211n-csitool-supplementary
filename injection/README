@@ -1,7 +1,7 @@
 You need LORCON version 1 to compile this executable.
 
 - install libpcap-dev
-- download LORCONv1 from http://802.11ninja.net/svn/lorcon/branch/lorcon-old/
+- download LORCONv1 from http://802.11ninja.net/svn/lorcon/branch/lorcon-old/, or the mirror https://github.com/dhalperi/lorcon-old.git
 - compile and sudo make install LORCON
 - make install here
 
