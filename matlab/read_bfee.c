@@ -14,7 +14,7 @@ void read_bfee(unsigned char *inBytes, mxArray *outCell)
 	unsigned int rssi_a = inBytes[10];
 	unsigned int rssi_b = inBytes[11];
 	unsigned int rssi_c = inBytes[12];
-	char noise = inBytes[13];
+	signed char noise = inBytes[13];
 	unsigned int agc = inBytes[14];
 	unsigned int antenna_sel = inBytes[15];
 	unsigned int len = inBytes[16] + (inBytes[17] << 8);
@@ -23,7 +23,7 @@ void read_bfee(unsigned char *inBytes, mxArray *outCell)
 	unsigned int i, j;
 	unsigned int index = 0, remainder;
 	unsigned char *payload = &inBytes[20];
-	char tmp;
+	signed char tmp;
 	mwSize size[] = {Ntx, Nrx, 30};
 	mxArray *csi = mxCreateNumericArray(3, size, mxDOUBLE_CLASS, mxCOMPLEX);
 	mwSize perm_size[] = {1, 3};
