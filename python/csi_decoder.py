@@ -27,7 +27,7 @@ DTYPE_CSI_HEADER_TLV = np.dtype([
     ("agc", np.uint8),
     ("antenna_sel", np.uint8),
     ("len", np.uint16),
-    ("fake_rate_n_flags", np.uint8),
+    ("fake_rate_n_flags", np.uint16),
 ]).newbyteorder('<')
 
 DTYPE_CSI_DATA_TLV = np.dtype(np.ubyte).newbyteorder('<')
