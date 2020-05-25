@@ -1,0 +1,9 @@
+I have recently utilized the CSI tool to record a large CSI dataset for 13 human-to-human interactions that were recorded for 40 pairs of different subjects. I have published this dataset in the Data in Brief Journal (https://doi.org/10.1016/j.dib.2020.105668) and made it publically available.
+
+The names of authors, title of my article, and volume and year of publication infromation are provided below: 
+
+Rami Alazrai, Ali Awad, Alsaify Baha’A, Mohammad Hababeh, Mohammad I Daoud.
+A dataset for Wi-Fi-based human-to-human interaction recognition, in Data in Brief, Vol. 31, no.105668, 2020 
+
+
+I appreciate if you please can add my article to the list of published papers that used the CSI tool, which is posted at  the website of the CSI tool, to allow other researchers to use the dataset and advance the wheel in developing algorithms that are related to recognizing activities of multiple humans. 
