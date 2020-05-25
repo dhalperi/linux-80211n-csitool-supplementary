@@ -2,7 +2,7 @@ I have recently utilized the CSI tool to record a large CSI dataset for 13 human
 
 The names of authors, title of my article, and volume and year of publication infromation are provided below: 
 
-Rami Alazrai, Ali Awad, Alsaify Baha’A, Mohammad Hababeh, Mohammad I Daoud.
+Rami Alazrai, Ali Awad, Alsaify Baha' A, Mohammad Hababeh, Mohammad I Daoud.
 A dataset for Wi-Fi-based human-to-human interaction recognition, in Data in Brief, Vol. 31, no.105668, 2020 
 
 
